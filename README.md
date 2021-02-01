@@ -1,1 +1,1 @@
-# LeetCode-Feb2021
+Accepted Solutions of LeetCode February 2021.
