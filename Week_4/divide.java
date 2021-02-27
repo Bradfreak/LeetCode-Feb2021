@@ -1,18 +1,24 @@
 class Solution {
-    public int divide(int di, int d) {
-        int sign = ((di < 0) ^ (d < 0)) ? -1 : 1, ans = 0;
-        long Di = (long)di, D = (long)d;
-        if(di < 0){
-            Di = Math.abs((long)di);
+    public int divide(int dividend, int divisor) {
+        if(dividend == Integer.MIN_VALUE && divisor == -1)
+            return Integer.MAX_VALUE;
+
+		int sign = (dividend < 0) ^ (divisor < 0) ? -1 : 1;
+        int result = 0;
+		long x = Math.abs((long)dividend);
+        long y = Math.abs((long)divisor);
+
+		while(x >= y)
+		{
+            int shift = 1;
+
+            while(x >= (y << shift))
+			{
+                shift++;
+            }
+            x -= y << (shift - 1);
+            result += 1 << (shift - 1);
         }
-        if(d < 0){
-            D = Math.abs((long)d);
-        }
-        while(Di > D){
-            Di = Di - D;
-            ans++;
-        }
-        ans = (sign == -1) ? -ans : ans;
-        return ans;
+        return result * sign;
     }
 }
