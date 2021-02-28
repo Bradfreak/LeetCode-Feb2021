@@ -1,24 +1,26 @@
 class Solution {
-    public int divide(int dividend, int divisor) {
-        if(dividend == Integer.MIN_VALUE && divisor == -1)
-            return Integer.MAX_VALUE;
-
-		int sign = (dividend < 0) ^ (divisor < 0) ? -1 : 1;
-        int result = 0;
-		long x = Math.abs((long)dividend);
-        long y = Math.abs((long)divisor);
-
-		while(x >= y)
-		{
-            int shift = 1;
-
-            while(x >= (y << shift))
-			{
-                shift++;
-            }
-            x -= y << (shift - 1);
-            result += 1 << (shift - 1);
+    public int divide(int di, int d) {
+        if(di == -2147483648 && d == -1){
+            return 2147483647;
         }
-        return result * sign;
+        if(d == 1){
+            return di;
+        }
+        if(d == -1){
+            return -di;
+        }
+        int ans = 0, sh, sign = ((di < 0) ^ (d < 0)) ? -1 : 1;
+        long Di = Math.abs((long)di);
+        long D = Math.abs((long)d);
+        while(Di >= D){
+            sh = 1;
+            while(Di >= (D << sh)){
+                sh++;
+            }
+            Di = Di - (D << (sh -1));
+            ans = ans + (1 << (sh - 1));
+        }
+        ans = (sign == -1) ? -ans : ans;
+        return ans;
     }
 }
